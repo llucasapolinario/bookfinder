@@ -23,6 +23,17 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
     private lateinit var presenter: MVP.PresenterImpl
     private lateinit var recyclerView: RecyclerView
     private lateinit var books: ArrayList<Book>
+    private val DESCRIBLE_kEY = "query"
+    private lateinit var query : String
+
+    fun newInstance(query: String): HomeFragment {
+        val fragment = HomeFragment()
+        val bundle = Bundle()
+        bundle.putString(DESCRIBLE_kEY, query)
+        fragment.setArguments(bundle)
+
+        return fragment
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -40,10 +51,12 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
     }
 
     private fun setUpPresenter() {
+        query = arguments!!.getString(DESCRIBLE_kEY)
         presenter = Presenter()
         presenter.setView(this, activity!!.applicationContext)
-        presenter.fetchBooks("lord of ring")
+        presenter.fetchBooks(query)
         books = presenter.getBooks()
+
     }
 
     override fun showToast(mensage: String) {

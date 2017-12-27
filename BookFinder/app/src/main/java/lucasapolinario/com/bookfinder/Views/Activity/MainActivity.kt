@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,6 +15,8 @@ import lucasapolinario.com.bookfinder.R
 import lucasapolinario.com.bookfinder.views.fragment.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+
+    private var searchQuery = "lord of ring"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .replace(R.id.frame, HomeFragment(), "Home")
+                .replace(R.id.frame, HomeFragment().newInstance(searchQuery), "Home")
                 .commitNow()
 
         nav_view.setNavigationItemSelectedListener(this)
@@ -46,9 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        Log.d("search", "onCreateOptionsMenu")
         menuInflater.inflate(R.menu.main, menu)
-
         menu.findItem(R.id.action_search)
         val searchView = menu.findItem(R.id.action_search).actionView as? SearchView
         searchView?.setOnQueryTextListener(this)
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_search -> goToFragment(HomeFragment(), "Categories")
+            R.id.nav_search -> goToFragment(HomeFragment().newInstance(searchQuery), "Home")
             R.id.nav_categories -> goToFragment(CategoriesFragment(), "Categories")
             R.id.nav_liked -> goToFragment(LikedFragment(), "LikedFragment")
             R.id.nav_about -> goToFragment(AboutFragment(), "About")
@@ -67,27 +66,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
+
         return true
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        Log.d("search", query)
-        if (query.isNotEmpty()){
-            goToFragment(BookViewFragment().newInstance(query), "Book")
-            return true
-        }
-        return false
+        return searchQuery(query)
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        Log.d("search", newText)
-        if (newText.isNotEmpty()){
-            goToFragment(BookViewFragment().newInstance(newText), "Book")
-            return true
-        }
-        return false
+        return searchQuery(newText)
     }
 
+    private fun searchQuery(query: String): Boolean {
+        searchQuery = query
+        if (query.isNotEmpty()) {
+            goToFragment(HomeFragment().newInstance(searchQuery), "Book")
+
+            return true
+        }
+
+        return false
+    }
 
     private fun goToFragment(fragment: Fragment, tag: String) {
         supportFragmentManager
