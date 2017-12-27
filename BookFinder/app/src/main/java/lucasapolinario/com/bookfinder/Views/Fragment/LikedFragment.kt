@@ -1,4 +1,4 @@
-package lucasapolinario.com.bookfinder.Views.Fragment
+package lucasapolinario.com.bookfinder.views.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

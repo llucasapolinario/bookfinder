@@ -40,8 +40,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    // image
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    // gson
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.squareup.picasso:picasso:2.5.2' /* PARA CARREGAMENTO DE IMAGENS REMOTAS */
+    compile 'com.loopj.android:android-async-http:1.4.9' /* PARA COMUNICAÇÃO COM BACKEND WEB */
+    compile 'com.google.code.gson:gson:2.8.0' /* PARA O PARSER JSON */
 }

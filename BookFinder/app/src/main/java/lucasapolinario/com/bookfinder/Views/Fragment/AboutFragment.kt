@@ -1,6 +1,6 @@
 @file:Suppress("UNREACHABLE_CODE")
 
-package lucasapolinario.com.bookfinder.Views.Fragment
+package lucasapolinario.com.bookfinder.views.fragment
 
 import android.content.Context
 import android.os.Bundle

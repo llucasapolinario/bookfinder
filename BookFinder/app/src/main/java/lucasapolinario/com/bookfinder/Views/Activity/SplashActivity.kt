@@ -1,4 +1,4 @@
-package lucasapolinario.com.bookfinder.Views.Activity
+package lucasapolinario.com.bookfinder.views.activity
 
 import android.content.Intent
 import android.os.Bundle

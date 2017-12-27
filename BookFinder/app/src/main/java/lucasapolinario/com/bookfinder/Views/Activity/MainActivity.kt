@@ -1,4 +1,4 @@
-package lucasapolinario.com.bookfinder.Views.Activity
+package lucasapolinario.com.bookfinder.views.activity
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -11,10 +11,10 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import lucasapolinario.com.bookfinder.R
-import lucasapolinario.com.bookfinder.Views.Fragment.AboutFragment
-import lucasapolinario.com.bookfinder.Views.Fragment.CategoriesFragment
-import lucasapolinario.com.bookfinder.Views.Fragment.HomeFragment
-import lucasapolinario.com.bookfinder.Views.Fragment.LikedFragment
+import lucasapolinario.com.bookfinder.views.fragment.AboutFragment
+import lucasapolinario.com.bookfinder.views.fragment.CategoriesFragment
+import lucasapolinario.com.bookfinder.views.fragment.HomeFragment
+import lucasapolinario.com.bookfinder.views.fragment.LikedFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
