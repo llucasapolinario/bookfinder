@@ -9,11 +9,8 @@ import lucasapolinario.com.bookfinder.presenter.Book
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import android.text.method.TextKeyListener.clear
 
 
-
-@Suppress("JAVA_CLASS_ON_COMPANION")
 class JsonHttpRequest(presenterImpl: MVP.PresenterImpl) : JsonHttpResponseHandler() {
 
     private var presenter : MVP.PresenterImpl = presenterImpl
@@ -28,7 +25,7 @@ class JsonHttpRequest(presenterImpl: MVP.PresenterImpl) : JsonHttpResponseHandle
 
         Log.d("jsom", "JSONObject")
         try {
-            var docs: JSONArray? = null
+            val docs: JSONArray
             if (response != null) {
                 docs = response.getJSONArray("docs")
                 val books = Book("", "", "").fromJson(docs)

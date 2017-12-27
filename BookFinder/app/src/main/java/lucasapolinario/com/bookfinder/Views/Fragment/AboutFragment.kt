@@ -1,5 +1,3 @@
-@file:Suppress("UNREACHABLE_CODE")
-
 package lucasapolinario.com.bookfinder.views.fragment
 
 import android.os.Bundle
