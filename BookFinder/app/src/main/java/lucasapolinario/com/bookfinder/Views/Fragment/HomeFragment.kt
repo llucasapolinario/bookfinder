@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import lucasapolinario.com.bookfinder.MVP
@@ -64,6 +63,7 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
         if (view != null) {
             val pb: ProgressBar = view!!.findViewById(R.id.pb_loading)
             pb.setVisibility(visibilidade)
+            updateListRecycler()
         }
     }
 
@@ -73,10 +73,10 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
         else
             recyclerView.adapter = BookAdapter(books)
 
-        if (books.isEmpty()) {
-            val image = view!!.findViewById<ImageView>(R.id.imageView2)
-            image.setImageResource(R.drawable.bookfinder)
-        }
+//        if (books.isEmpty()) {
+//            val image = view!!.findViewById<ImageView>(R.id.imageView2)
+//            image.setImageResource(R.drawable.bookfinder)
+//        }
 
         val lm = LinearLayoutManager(activity!!.applicationContext)
         lm.orientation = LinearLayoutManager.VERTICAL

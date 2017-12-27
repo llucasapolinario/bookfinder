@@ -10,15 +10,14 @@ import lucasapolinario.com.bookfinder.model.Model
 
 class Presenter : MVP.PresenterImpl {
 
-
     private var model: MVP.ModelImpl = Model(this)
     private lateinit var view: MVP.ViewImpl
     private var books = ArrayList<Book>()
     private lateinit var context : Context
 
 
-    override fun fetchBook(book: Book) {
-
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return model.onQueryTextSubmit(query)
     }
 
     override fun fetchBooks() {

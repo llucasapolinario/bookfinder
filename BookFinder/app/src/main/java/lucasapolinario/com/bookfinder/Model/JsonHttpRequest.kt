@@ -9,6 +9,9 @@ import lucasapolinario.com.bookfinder.presenter.Book
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import android.text.method.TextKeyListener.clear
+
+
 
 @Suppress("JAVA_CLASS_ON_COMPANION")
 class JsonHttpRequest(presenterImpl: MVP.PresenterImpl) : JsonHttpResponseHandler() {
@@ -22,17 +25,31 @@ class JsonHttpRequest(presenterImpl: MVP.PresenterImpl) : JsonHttpResponseHandle
     }
 
     override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
+
         Log.d("jsom", "JSONObject")
-        val gson = Gson()
-        val book = gson.fromJson(response.toString(), Book.javaClass)
-        Log.d("jsom", book.toString())
-        presenter.updateItemRecycler(book)
+        try {
+            var docs: JSONArray? = null
+            if (response != null) {
+                docs = response.getJSONArray("docs")
+                val books = Book("", "", "").fromJson(docs)
+                Log.d("jsom", books.toString())
+                presenter.updateListRecycler(books!!)
+            }
+        } catch (e: JSONException) {
+            presenter.showToast("Invalid JSON format")
+            e.printStackTrace()
+        }
+
     }
 
     override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONArray?) {
+
         Log.d("jsom", "JSONArray")
+
         val books = ArrayList<Book>()
         var book: Book
+
+        books.clear()
 
         for (i in 0 until response!!.length()) {
             try {
@@ -45,12 +62,18 @@ class JsonHttpRequest(presenterImpl: MVP.PresenterImpl) : JsonHttpResponseHandle
     }
 
     override fun onFailure(statusCode: Int, headers: Array<out Header>?, responseString: String?, throwable: Throwable?) {
+
+        Log.d("jsom", "onFailure")
+
         if (responseString != null) {
             presenter.showToast(responseString)
         }
     }
 
     override fun onFinish() {
+
+        Log.d("jsom", "onFinish")
+
         presenter.showProgressBar(false )
     }
 

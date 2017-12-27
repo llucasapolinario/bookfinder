@@ -29,7 +29,7 @@ data class Book (
         return "http://covers.openlibrary.org/b/olid/$openLibraryId-L.jpg?default=false"
     }
 
-    private fun fromJson(jsonArray: JSONArray?): ArrayList<Book>? {
+    public fun fromJson(jsonArray: JSONArray?): ArrayList<Book>? {
         val books = ArrayList<Book>(jsonArray!!.length())
         // Process each result in json array, decode and convert to business
         // object
@@ -50,7 +50,7 @@ data class Book (
         return books
     }
 
-    private fun fromJson(jsonObject: JSONObject): Book? {
+    public fun fromJson(jsonObject: JSONObject): Book? {
 
         var openLibraryId : String = ""
         var title : String
@@ -70,7 +70,6 @@ data class Book (
 
         return Book(openLibraryId, author, title)
     }
-
 
     private fun getAuthor(jsonObject: JSONObject): String {
         try {

@@ -10,13 +10,16 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import lucasapolinario.com.bookfinder.MVP
 import lucasapolinario.com.bookfinder.R
 import lucasapolinario.com.bookfinder.views.fragment.AboutFragment
 import lucasapolinario.com.bookfinder.views.fragment.CategoriesFragment
 import lucasapolinario.com.bookfinder.views.fragment.HomeFragment
 import lucasapolinario.com.bookfinder.views.fragment.LikedFragment
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MVP.ViewImpl {
+
+    private lateinit var presenter: MVP.PresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +56,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_search -> {
+                return presenter.onQueryTextSubmit(item.toString())
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -83,6 +88,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun showToast(mensage: String) {
+
+    }
+
+    override fun showProgressBar(visibilidade: Int) {
+
+    }
+
+    override fun updateListRecycler() {
+
+    }
+
+    override fun updateItemRecycler(possition: Int) {
+
     }
 
     private fun goToFragment(fragment: Fragment, tag: String) {

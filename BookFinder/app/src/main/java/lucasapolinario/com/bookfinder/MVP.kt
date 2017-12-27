@@ -9,12 +9,11 @@ interface MVP {
 
     interface ModelImpl{
         fun getBooks(query: String, handler: JsonHttpRequest)
+        fun onQueryTextSubmit(query: String): Boolean
     }
 
     interface PresenterImpl{
-        fun fetchBook(book : Book)
         fun fetchBooks()
-
         fun showToast(mensage : String)
         fun showProgressBar(status: Boolean)
         fun setView(viewImpl: MVP.ViewImpl, cont: Context)
@@ -23,6 +22,7 @@ interface MVP {
         fun updateItemRecycler(b: Book.CREATOR)
 
         fun getBooks(): ArrayList<Book>
+        fun onQueryTextSubmit(query: String): Boolean
     }
 
     interface ViewImpl{
