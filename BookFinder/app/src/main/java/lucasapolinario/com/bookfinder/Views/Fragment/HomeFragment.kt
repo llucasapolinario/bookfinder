@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,15 +26,14 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.fragment_home,
-                container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onResume() {
         super.onResume()
         try {
             setUpPresenter()
+            recyclerView = view!!.findViewById(R.id.rv_reciclerview)
         } catch (e: ParseException) {
             e.printStackTrace()
         }
@@ -44,48 +42,35 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
     private fun setUpPresenter() {
         presenter = Presenter()
         presenter.setView(this, activity!!.applicationContext)
-        presenter.fetchBooks()
+        presenter.fetchBooks("lord of ring")
         books = presenter.getBooks()
-        recyclerView = view!!.findViewById(R.id.rv_reciclerview)
-
-        Log.d("jsom", "view")
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
     }
 
     override fun showToast(mensage: String) {
         Toast.makeText(activity, mensage, Toast.LENGTH_SHORT).show()
     }
+
     override fun showProgressBar(visibilidade: Int) {
         if (view != null) {
             val pb: ProgressBar = view!!.findViewById(R.id.pb_loading)
-            pb.setVisibility(visibilidade)
+            pb.visibility = visibilidade
             updateListRecycler()
         }
     }
 
     override fun updateListRecycler() {
         if (recyclerView.adapter != null)
-               recyclerView.adapter.notifyDataSetChanged()
+            recyclerView.adapter.notifyDataSetChanged()
         else
             recyclerView.adapter = BookAdapter(books)
 
-//        if (books.isEmpty()) {
-//            val image = view!!.findViewById<ImageView>(R.id.imageView2)
-//            image.setImageResource(R.drawable.bookfinder)
-//        }
-
         val lm = LinearLayoutManager(activity!!.applicationContext)
-        lm.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.setLayoutManager(lm)
-        recyclerView.setItemAnimator(DefaultItemAnimator())
+        recyclerView.layoutManager = lm
+        recyclerView.itemAnimator = DefaultItemAnimator()
     }
 
     override fun updateItemRecycler(possition: Int) {
-        recyclerView.adapter.notifyItemChanged( possition )
+        recyclerView.adapter.notifyItemChanged(possition)
     }
 
 }

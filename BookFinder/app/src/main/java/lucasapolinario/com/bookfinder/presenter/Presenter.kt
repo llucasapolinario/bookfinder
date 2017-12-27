@@ -3,7 +3,6 @@ package lucasapolinario.com.bookfinder.presenter
 import android.content.Context
 import android.util.Log
 import android.view.View
-import com.loopj.android.http.JsonHttpResponseHandler
 import lucasapolinario.com.bookfinder.MVP
 import lucasapolinario.com.bookfinder.model.JsonHttpRequest
 import lucasapolinario.com.bookfinder.model.Model
@@ -16,13 +15,13 @@ class Presenter : MVP.PresenterImpl {
     private lateinit var context : Context
 
 
-    override fun onQueryTextSubmit(query: String): Boolean {
-        return model.onQueryTextSubmit(query)
+    override fun fetchBook(query: String) {
+
     }
 
-    override fun fetchBooks() {
+    override fun fetchBooks(query: String) {
         Log.d("jsom", "presenter")
-        model.getBooks("oscar Wilde", JsonHttpRequest(this))
+        model.fetchBooks(query, JsonHttpRequest(this))
 
     }
 
@@ -30,7 +29,6 @@ class Presenter : MVP.PresenterImpl {
         view = viewImpl
         context = cont
     }
-
 
     override fun showToast(mensage: String) {
         view.showToast(mensage)
@@ -52,7 +50,7 @@ class Presenter : MVP.PresenterImpl {
 
     override fun updateItemRecycler(b: Book.CREATOR) {
         for (b1 in books){
-            if (b1.openLibraryId.equals(b.openLibraryId)) {
+            if (b1.openLibraryId == b.openLibraryId) {
                 view.updateItemRecycler(books.indexOf(b1))
                 break
             }

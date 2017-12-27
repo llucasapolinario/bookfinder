@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import lucasapolinario.com.bookfinder.R
 
 
-class BookAdapter(var list: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private var list: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder!!.bind(list[position])
