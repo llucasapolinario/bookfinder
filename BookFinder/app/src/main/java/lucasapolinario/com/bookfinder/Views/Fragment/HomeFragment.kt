@@ -1,6 +1,7 @@
 package lucasapolinario.com.bookfinder.views.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +13,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import lucasapolinario.com.bookfinder.MVP
 import lucasapolinario.com.bookfinder.R
-import lucasapolinario.com.bookfinder.presenter.Book
+import lucasapolinario.com.bookfinder.model.dataClass.Book
 import lucasapolinario.com.bookfinder.presenter.Presenter
 import lucasapolinario.com.bookfinder.views.BookAdapter
 import java.text.ParseException
@@ -23,14 +24,14 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
     private lateinit var presenter: MVP.PresenterImpl
     private lateinit var recyclerView: RecyclerView
     private lateinit var books: ArrayList<Book>
-    private val DESCRIBLE_kEY = "query"
+    private val key = "query"
     private lateinit var query : String
 
     fun newInstance(query: String): HomeFragment {
         val fragment = HomeFragment()
         val bundle = Bundle()
-        bundle.putString(DESCRIBLE_kEY, query)
-        fragment.setArguments(bundle)
+        bundle.putString(key, query)
+        fragment.arguments = bundle
 
         return fragment
     }
@@ -51,7 +52,7 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
     }
 
     private fun setUpPresenter() {
-        query = arguments!!.getString(DESCRIBLE_kEY)
+        query = arguments!!.getString(key)
         presenter = Presenter()
         presenter.setView(this, activity!!.applicationContext)
         presenter.fetchBooks(query)
@@ -72,18 +73,20 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
     }
 
     override fun updateListRecycler() {
-        if (recyclerView.adapter != null)
-            recyclerView.adapter.notifyDataSetChanged()
-        else
-            recyclerView.adapter = BookAdapter(books)
 
+        val handler = Handler()
+        handler.postDelayed({
+            recyclerView.adapter = BookAdapter(books){
+                fragmentManager!!.beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                        .replace(R.id.frame, BookViewFragment().newInstance(it), tag)
+                        .addToBackStack(tag)
+                        .commit()
+            }
+        },1100)
         val lm = LinearLayoutManager(activity!!.applicationContext)
         recyclerView.layoutManager = lm
         recyclerView.itemAnimator = DefaultItemAnimator()
-    }
-
-    override fun updateItemRecycler(possition: Int) {
-        recyclerView.adapter.notifyItemChanged(possition)
     }
 
 }

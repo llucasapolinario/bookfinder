@@ -1,46 +1,44 @@
 package lucasapolinario.com.bookfinder.model
 
-import android.util.Log
 import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.RequestParams
 import lucasapolinario.com.bookfinder.MVP
-import lucasapolinario.com.bookfinder.presenter.Book
+import lucasapolinario.com.bookfinder.model.jsonHttpRequest.BookInformationRequest
+import lucasapolinario.com.bookfinder.model.jsonHttpRequest.BookLibraryRequest
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 
 
 class Model(presenterImpl: MVP.PresenterImpl) : MVP.ModelImpl {
 
-    val  URL: String  = "http://openlibrary.org/"
+    private val urlOpenLibrary: String  = "http://openlibrary.org/"
 
     private var presenter : MVP.PresenterImpl = presenterImpl
-    private val asyncHttpClinet = AsyncHttpClient()
+    private val asyncHttpClient = AsyncHttpClient()
 
-    override fun fetchBooks(query: String, handler: JsonHttpRequest) {
+    override fun fetchBooks(query: String) {
         try{
             val url = getApiUrl("search.json?q=")
-            val request = RequestParams(URL, url)
-            asyncHttpClinet.get(url + URLEncoder.encode(query, "utf-8"), JsonHttpRequest(presenter))
+            asyncHttpClient.get(url + URLEncoder.encode(query, "utf-8"), BookLibraryRequest(presenter))
+
         }catch (e : UnsupportedEncodingException){
             presenter.showToast("coneção deu ruim")
         }
 
     }
 
-    override fun fetchBook(query: String) {
+    override fun fetchBookInfo(query: String) {
         presenter.showProgressBar(true)
-        val book : Book
         try{
             val url = getApiUrl("search.json?q=" + query)
-            val request = RequestParams(URL, url)
-            asyncHttpClinet.get(url + URLEncoder.encode(query, "utf-8"), JsonHttpRequest(presenter))
+            asyncHttpClient.get(url + URLEncoder.encode(query, "utf-8"), BookInformationRequest(presenter))
+
         }catch (e : UnsupportedEncodingException){
             presenter.showToast("coneção deu ruim")
         }
     }
 
-    fun getApiUrl(relativeUrl: String): String {
-        return URL + relativeUrl
+    private fun getApiUrl(relativeUrl: String): String {
+        return urlOpenLibrary + relativeUrl
     }
 
 }

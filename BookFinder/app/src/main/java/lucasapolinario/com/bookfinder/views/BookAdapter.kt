@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import lucasapolinario.com.bookfinder.presenter.Book
+import lucasapolinario.com.bookfinder.model.dataClass.Book
 import android.view.ViewGroup
 import android.widget.TextView
 import android.view.LayoutInflater
@@ -13,10 +13,11 @@ import com.squareup.picasso.Picasso
 import lucasapolinario.com.bookfinder.R
 
 
-class BookAdapter(private var list: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private var list: ArrayList<Book>, private val listener: (Book) -> Unit) :
+        RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder!!.bind(list[position])
+        holder!!.bind(list[position], listener)
     }
 
     override fun getItemCount(): Int {
@@ -24,7 +25,9 @@ class BookAdapter(private var list: ArrayList<Book>) : RecyclerView.Adapter<Book
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent!!.context).inflate(R.layout.item_book, parent, false),parent.context)
+        return ViewHolder(
+                LayoutInflater.from(parent!!.context).inflate(R.layout.item_book, parent,false),
+                parent.context)
     }
 
     class ViewHolder(var view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
@@ -34,9 +37,10 @@ class BookAdapter(private var list: ArrayList<Book>) : RecyclerView.Adapter<Book
         private lateinit var autor: TextView
 
 
-        fun bind(book: Book) {
+        fun bind(book: Book, listener: (Book) -> Unit) = with(view) {
             initData()
             setData(book)
+            setOnClickListener { listener(book)}
         }
 
         private fun setData(currentObj: Book) {
