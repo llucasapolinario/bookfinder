@@ -20,8 +20,7 @@ class BookInformationRequest(private var presenter: MVP.PresenterImpl): JsonHttp
                 (0 until numPublishers).mapTo(publishers) { publisher.getString(it) }
 
                 if (response.has("number_of_pages")){
-                    val num = response.getInt("number_of_pages").toString()
-                    publishers.add(num + " pages")
+                    publishers.add(response.getInt("number_of_pages").toString() + " pages")
                 }else
                     publishers.add("pages not metion")
 
@@ -31,6 +30,5 @@ class BookInformationRequest(private var presenter: MVP.PresenterImpl): JsonHttp
             presenter.showToast("Invalid JSON format")
             e.printStackTrace()
         }
-
     }
 }

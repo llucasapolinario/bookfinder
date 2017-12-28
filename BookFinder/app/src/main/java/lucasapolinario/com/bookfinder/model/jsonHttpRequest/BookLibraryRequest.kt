@@ -23,7 +23,5 @@ class BookLibraryRequest(private var presenter: MVP.PresenterImpl) : JsonHttpReq
             presenter.showToast("Invalid JSON format")
             e.printStackTrace()
         }
-
     }
-
 }

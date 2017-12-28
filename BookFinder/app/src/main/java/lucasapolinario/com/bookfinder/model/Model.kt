@@ -1,7 +1,10 @@
 package lucasapolinario.com.bookfinder.model
 
+import android.content.Context
 import com.loopj.android.http.AsyncHttpClient
 import lucasapolinario.com.bookfinder.MVP
+import lucasapolinario.com.bookfinder.model.dataClass.Book
+import lucasapolinario.com.bookfinder.model.db.LikedBooksDB
 import lucasapolinario.com.bookfinder.model.jsonHttpRequest.BookInformationRequest
 import lucasapolinario.com.bookfinder.model.jsonHttpRequest.BookLibraryRequest
 import java.io.UnsupportedEncodingException
@@ -12,13 +15,15 @@ class Model(presenterImpl: MVP.PresenterImpl) : MVP.ModelImpl {
 
     private val urlOpenLibrary: String  = "http://openlibrary.org/"
 
+
     private var presenter : MVP.PresenterImpl = presenterImpl
     private val asyncHttpClient = AsyncHttpClient()
 
     override fun fetchBooks(query: String) {
         try{
-            val url = getApiUrl("search.json?q=")
-            asyncHttpClient.get(url + URLEncoder.encode(query, "utf-8"), BookLibraryRequest(presenter))
+            asyncHttpClient.get(getApiUrl("search.json?q=") +
+                    URLEncoder.encode(query, "utf-8"),
+                    BookLibraryRequest(presenter))
 
         }catch (e : UnsupportedEncodingException){
             presenter.showToast("coneção deu ruim")
@@ -28,12 +33,24 @@ class Model(presenterImpl: MVP.PresenterImpl) : MVP.ModelImpl {
 
     override fun fetchBookInfo(query: String) {
         try{
-            val url = getApiUrl("books/$query.json")
-            asyncHttpClient.get(url , BookInformationRequest(presenter))
+            asyncHttpClient.get(getApiUrl("books/$query.json")
+                    , BookInformationRequest(presenter))
 
         }catch (e : UnsupportedEncodingException){
             presenter.showToast("coneção deu ruim")
         }
+    }
+
+    override fun likebook(book: Book, context: Context){
+        LikedBooksDB(context).insert(book)
+    }
+
+    override fun dislikebook(book: Book, context: Context){
+        LikedBooksDB(context).deletLikedBook(book)
+    }
+
+    override fun getLikedBooks(context: Context): ArrayList<Book>{
+        return LikedBooksDB(context).getLikedBooks()
     }
 
     private fun getApiUrl(relativeUrl: String): String {

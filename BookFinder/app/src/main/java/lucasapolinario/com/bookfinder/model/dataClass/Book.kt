@@ -23,8 +23,6 @@ data class Book(
             return arrayOfNulls(size)
         }
 
-        val openLibraryId: String = ""
-
     }
 
     constructor(parcel: Parcel) : this(

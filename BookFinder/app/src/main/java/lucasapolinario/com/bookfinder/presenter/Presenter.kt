@@ -1,12 +1,13 @@
 package lucasapolinario.com.bookfinder.presenter
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import lucasapolinario.com.bookfinder.MVP
 import lucasapolinario.com.bookfinder.model.dataClass.Book
 import lucasapolinario.com.bookfinder.model.Model
 
-class Presenter : MVP.PresenterImpl {
+class Presenter  : MVP.PresenterImpl {
 
 
     private var model: MVP.ModelImpl = Model(this)
@@ -23,6 +24,17 @@ class Presenter : MVP.PresenterImpl {
         model.fetchBookInfo(query)
     }
 
+    override fun likebook(book: Book){
+        model.likebook(book, context)
+    }
+
+    override fun deslikebook(book: Book){
+        model.dislikebook(book, context)
+    }
+
+    override fun getLikedBooks(): ArrayList<Book>{
+        return model.getLikedBooks(context)
+    }
 
     override fun getBooks(): ArrayList<Book> {
         return books
@@ -62,5 +74,7 @@ class Presenter : MVP.PresenterImpl {
         bookInfo.addAll(info)
         view.updateListRecycler()
     }
+
+
 
 }

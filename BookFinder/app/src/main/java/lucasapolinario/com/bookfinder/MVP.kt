@@ -8,11 +8,19 @@ interface MVP {
     interface ModelImpl{
         fun fetchBooks(query: String)
         fun fetchBookInfo(query: String)
+
+        fun likebook(book: Book, context: Context)
+        fun dislikebook(book: Book, context: Context)
+        fun getLikedBooks(context: Context): ArrayList<Book>
     }
 
     interface PresenterImpl{
         fun fetchBooks(query: String)
         fun fetchBookInfo(query: String)
+
+        fun likebook(book: Book)
+        fun deslikebook(book: Book)
+        fun getLikedBooks(): ArrayList<Book>
 
         fun getBooks(): ArrayList<Book>
         fun getBookInfo(): ArrayList<String>

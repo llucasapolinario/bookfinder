@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Book Finder</string>
     <string name="startmensage">Guenta ai, já estamos abrindo o App…</string>
-    <string name="imageSimble">book Icon</string>
+    <string name="imageSimble">bookdb Icon</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="nav_header_title">Book Finder</string>
-    <string name="nav_header_subtitle">Find the book you want</string>
+    <string name="nav_header_subtitle">Find the bookdb you want</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="search">Search</string>
