@@ -27,10 +27,9 @@ class Model(presenterImpl: MVP.PresenterImpl) : MVP.ModelImpl {
     }
 
     override fun fetchBookInfo(query: String) {
-        presenter.showProgressBar(true)
         try{
-            val url = getApiUrl("search.json?q=" + query)
-            asyncHttpClient.get(url + URLEncoder.encode(query, "utf-8"), BookInformationRequest(presenter))
+            val url = getApiUrl("books/$query.json")
+            asyncHttpClient.get(url , BookInformationRequest(presenter))
 
         }catch (e : UnsupportedEncodingException){
             presenter.showToast("coneção deu ruim")

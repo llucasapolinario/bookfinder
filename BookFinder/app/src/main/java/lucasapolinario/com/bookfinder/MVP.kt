@@ -22,6 +22,7 @@ interface MVP {
 
         fun showToast(mensage : String)
         fun showProgressBar(status: Boolean)
+
         fun updateListRecycler(booksArray: ArrayList<Book>)
         fun getInfoBook(info : ArrayList<String>)
     }

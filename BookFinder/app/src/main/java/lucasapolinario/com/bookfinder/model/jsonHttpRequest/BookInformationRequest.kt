@@ -20,9 +20,10 @@ class BookInformationRequest(private var presenter: MVP.PresenterImpl): JsonHttp
                 (0 until numPublishers).mapTo(publishers) { publisher.getString(it) }
 
                 if (response.has("number_of_pages")){
-                    publishers.add(response.getInt("number_of_pages").toString())
+                    val num = response.getInt("number_of_pages").toString()
+                    publishers.add(num + " pages")
                 }else
-                    publishers.add("not metion")
+                    publishers.add("pages not metion")
 
                 presenter.getInfoBook(publishers)
             }

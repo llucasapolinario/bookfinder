@@ -17,6 +17,7 @@ class BookLibraryRequest(private var presenter: MVP.PresenterImpl) : JsonHttpReq
                 docs = response.getJSONArray("docs")
                 val books = Book("", "", "").fromJson(docs)
                 presenter.updateListRecycler(books!!)
+
             }
         } catch (e: JSONException) {
             presenter.showToast("Invalid JSON format")

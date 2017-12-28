@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_search -> goToFragment(HomeFragment().newInstance(searchQuery), "Home")
-            R.id.nav_categories -> goToFragment(CategoriesFragment(), "Categories")
             R.id.nav_liked -> goToFragment(LikedFragment(), "LikedFragment")
             R.id.nav_about -> goToFragment(AboutFragment(), "About")
 

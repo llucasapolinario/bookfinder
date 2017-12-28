@@ -63,5 +63,4 @@ class Presenter : MVP.PresenterImpl {
         view.updateListRecycler()
     }
 
-
 }
