@@ -1,14 +1,12 @@
 package lucasapolinario.com.bookfinder.presenter
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import lucasapolinario.com.bookfinder.MVP
 import lucasapolinario.com.bookfinder.model.dataClass.Book
 import lucasapolinario.com.bookfinder.model.Model
 
 class Presenter  : MVP.PresenterImpl {
-
 
     private var model: MVP.ModelImpl = Model(this)
     private lateinit var view: MVP.ViewImpl
