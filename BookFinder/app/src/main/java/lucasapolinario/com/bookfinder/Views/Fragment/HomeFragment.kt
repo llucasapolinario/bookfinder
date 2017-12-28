@@ -1,5 +1,6 @@
 package lucasapolinario.com.bookfinder.views.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.DefaultItemAnimator
@@ -35,6 +36,7 @@ open class HomeFragment : MyFragment() {
                 container, false)
     }
 
+    @SuppressLint("ResourceType")
     override fun onResume() {
         super.onResume()
         try {
