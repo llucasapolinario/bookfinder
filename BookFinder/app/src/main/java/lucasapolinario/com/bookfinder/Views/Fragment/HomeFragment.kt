@@ -2,6 +2,7 @@ package lucasapolinario.com.bookfinder.views.fragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import lucasapolinario.com.bookfinder.MVP
 import lucasapolinario.com.bookfinder.R
@@ -66,7 +66,7 @@ class HomeFragment : Fragment(), MVP.ViewImpl {
 
     override fun showProgressBar(visibilidade: Int) {
         if (view != null) {
-            val pb: ProgressBar = view!!.findViewById(R.id.pb_loading)
+            val pb : ConstraintLayout = view!!.findViewById(R.id.pb_loading)
             pb.visibility = visibilidade
             updateListRecycler()
         }

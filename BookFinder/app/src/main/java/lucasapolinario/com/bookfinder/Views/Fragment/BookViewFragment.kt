@@ -3,12 +3,13 @@ package lucasapolinario.com.bookfinder.views.fragment
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
@@ -50,7 +51,6 @@ class BookViewFragment : Fragment(), MVP.ViewImpl {
         book = arguments!!.getParcelable(key)
         query = book.openLibraryId
         init()
-        setData()
     }
 
     override fun showToast(mensage: String) {
@@ -59,7 +59,7 @@ class BookViewFragment : Fragment(), MVP.ViewImpl {
 
     override fun showProgressBar(visibilidade: Int) {
         if (view != null) {
-            val pb: ProgressBar = view!!.findViewById(R.id.pb_loading)
+            val pb: ConstraintLayout = view!!.findViewById(R.id.pb_loading)
             pb.visibility = visibilidade
         }
     }
@@ -82,7 +82,7 @@ class BookViewFragment : Fragment(), MVP.ViewImpl {
         presenter.fetchBookInfo(query)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("WrongConstant")
     override fun updateListRecycler() {
         bookInfo = presenter.getBookInfo()
 
@@ -91,6 +91,12 @@ class BookViewFragment : Fragment(), MVP.ViewImpl {
 
         bookInfo.removeAt(bookInfo.size-1)
         publisher.text = bookInfo.joinToString(",")
+        setData()
+
+        if (view != null) {
+            val pb: ScrollView = view!!.findViewById(R.id.sv_book)
+            pb.visibility = 1
+        }
 
     }
 
