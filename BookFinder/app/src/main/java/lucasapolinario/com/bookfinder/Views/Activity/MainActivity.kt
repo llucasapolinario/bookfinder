@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_search -> goToFragment(HomeFragment().newInstance(searchQuery), "Home")
             R.id.nav_liked -> goToFragment(LikedFragment(), "LikedFragment")
             R.id.nav_about -> goToFragment(AboutFragment(), "About")
-
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
