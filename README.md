@@ -9,5 +9,10 @@ Bookfinder is an Android application for find books. To that, the application us
 
 For this ware used:
 - MVP design patter
-- API https://openlibrary.org/dev/docs/api/search
-- Repository patter to save liked books
+- API https://openlibrary.org/dev/docs/api/search 
+- Repository patter to save liked books in SQLite Database
+
+## Requirements
+
+- Android 5.0 or higher
+- Internet access
