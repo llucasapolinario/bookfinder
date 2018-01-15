@@ -30,7 +30,8 @@ Following the definition of the layers:
 ##  Repository Pattern 
 > A Repository mediates between the domain and data mapping layers, acting like an in-memory domain object collection. Client objects construct query specifications declaratively and submit them to Repository for satisfaction. Objects can be added to and removed from the Repository, as they can from a simple collection of objects, and the mapping code encapsulated by the Repository will carry out the appropriate operations behind the scenes
 
-references: http://martinfowler.com/eaaCatalog/repository.html
+Reference: http://martinfowler.com/eaaCatalog/repository.html
+
 [![Scrutinizer Build](
 https://image.slidesharecdn.com/th26-copy-111022031205-phpapp01/95/building-high-quality-solutions-with-design-patterns-application-foundations-for-sharepoint-2010-6-728.jpg?cb=1319253156)]()
 
