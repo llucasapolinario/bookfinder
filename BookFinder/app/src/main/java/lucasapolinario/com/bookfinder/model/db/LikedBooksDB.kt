@@ -7,13 +7,14 @@ import lucasapolinario.com.bookfinder.model.dataClass.Book
 
 class LikedBooksDB (
         private val context: Context,
-        private val db : SQLiteDatabase = BookLikedDatabase(context, "likedbook_db").writableDatabase){
+        private val db : SQLiteDatabase = BookLikedDatabase(context, "likedbook_db").writableDatabase)
+    : BooksLikedRepository{
 
     private val tableName = "likedbook_db"
     private lateinit var contentValue : ContentValues
     private lateinit var bookdb: BookLikedDatabase
 
-    fun insert(book: Book){
+    override fun new(book: Book){
         contentValue = ContentValues()
         contentValue.put("openLibraryId", book.openLibraryId )
         contentValue.put("author", book.author)
@@ -22,7 +23,11 @@ class LikedBooksDB (
         db.insert(tableName,  null, contentValue)
     }
 
-    fun getLikedBooks(): ArrayList<Book>{
+    override fun delete(book: Book){
+        db.delete(tableName, "openLibraryId = ?", arrayOf(""+book.openLibraryId))
+    }
+
+    override fun getBooks(): ArrayList<Book>{
         bookdb = BookLikedDatabase(context, tableName)
         val books = ArrayList<Book>()
         val cursor = bookdb.writableDatabase.query(tableName,
@@ -38,7 +43,4 @@ class LikedBooksDB (
         return books
     }
 
-    fun deletLikedBook(book: Book){
-        db.delete(tableName, "openLibraryId = ?", arrayOf(""+book.openLibraryId))
-    }
 }

@@ -42,15 +42,15 @@ class Model(presenterImpl: MVP.PresenterImpl) : MVP.ModelImpl {
     }
 
     override fun likebook(book: Book, context: Context){
-        LikedBooksDB(context).insert(book)
+        LikedBooksDB(context).new(book)
     }
 
     override fun dislikebook(book: Book, context: Context){
-        LikedBooksDB(context).deletLikedBook(book)
+        LikedBooksDB(context).delete(book)
     }
 
     override fun getLikedBooks(context: Context): ArrayList<Book>{
-        return LikedBooksDB(context).getLikedBooks()
+        return LikedBooksDB(context).getBooks()
     }
 
     private fun getApiUrl(relativeUrl: String): String {
